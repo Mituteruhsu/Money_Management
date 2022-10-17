@@ -1,3 +1,4 @@
+from operator import index
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -62,3 +63,51 @@ df = pd.read_csv('TLZ64_0928.csv')
 #                     legend=True,  # 是否顯示圖例
 #                     figsize=(10, 5))  # 圖表大小
 # plt.show()
+
+# ===================================================
+# 日期轉換
+# datetime = pd.to_datetime(df['日期'])
+# print(datetime)
+
+# time_start = '2022-10-01'
+# time_end = '2022-10-11'
+
+# time1 = pd.to_datetime(time_start)
+# time2 = pd.to_datetime(time_end)
+# delta_time = time2-time1
+
+# delta_time_days = delta_time.days
+
+# print(delta_time_days)
+
+# ====================================================
+# 設日期為index
+# df = df.set_index('日期')
+# print(df.head(2))
+# print(df.tail(2))
+# print(df.shape)
+
+# ===============================================
+# 固定時間間隔求均值得方法 (移動平均)
+# 若index是時間序列，就不用轉換datetime；但是如果時間序列存在表格中的某一列，則可將之設為index
+# df = df.set_index('日期')
+# group = df.groupby(['日期', '淨值'])
+# f = pd.DataFrame(group['淨值'].sum().rolling(5, min_periods=1).mean())
+
+# print(f)
+
+# ===============================================
+# 刪除列的方式
+del df['漲跌幅(%)'] #可刪除列
+# df.drop(columns='漲跌幅(%)')
+# df.pop('漲跌幅(%)')
+
+# 移動平均線
+# 我們分別計算7天,15天與30天的移動平均線
+# df['MA_7'] = <- 會直接新增列
+df['MA_7'] = df['淨值'].rolling(7, min_periods=1).mean()
+df['MA_15'] = df['淨值'].rolling(15, min_periods=1).mean()
+df['MA_30'] = df['淨值'].rolling(30, min_periods=1).mean()
+
+print(df)
+# df.to_csv('TLZ64_0928_MA.csv', index=False)
