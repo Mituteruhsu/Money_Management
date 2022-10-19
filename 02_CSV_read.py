@@ -46,7 +46,8 @@ df_2022 = df['2022']
 df_1month = df.head(30)
 df_3month = df.head(90)
 
-plt.figure(figsize=(18,10))
+plt.figure(figsize=(18,10))  # 設定圖像大小
+
 plt.subplot(2, 2, 1)
 market_index.image(df_2022)
 plt.title("2022", {'fontsize':15})       # 設定圖標題及其文字大小
@@ -63,7 +64,7 @@ plt.title("3 month", {'fontsize':15})    # 設定圖標題及其文字大小
 plt.xticks(rotation = 45, fontsize = 10) # 設定 x 軸顯示角度與文字大小
 
 # 修改視窗顯示大小及格式
-plt.get_current_fig_manager().window.state('zoomed') # 將圖放到最大
+plt.get_current_fig_manager().window.state('zoomed') # 將視窗放到最大
 plt.subplots_adjust(
     left=0.07,
     bottom=0.1,
